@@ -5,6 +5,7 @@ namespace TeamPortfolio.Controllers;
 
 public class ProfilesController : Controller
 {
+    [HttpGet("/Profiles/{id}")]
     public IActionResult Details(string id)
     {
         var profile = TeamProfiles.All.FirstOrDefault(
