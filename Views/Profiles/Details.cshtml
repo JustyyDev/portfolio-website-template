@@ -1,0 +1,88 @@
+@model MemberProfile
+@{
+    ViewData["Title"] = string.IsNullOrWhiteSpace(Model.Name) ? "Profile template" : Model.Name;
+}
+
+<section class="profile-page" id="top">
+    <a class="text-link profile-back" asp-controller="Home" asp-action="Index"><span aria-hidden="true">←</span> All profiles</a>
+    <div class="profile-layout">
+        <div class="profile-portrait">
+            @if (!string.IsNullOrWhiteSpace(Model.ImageUrl))
+            {
+                <img src="@Model.ImageUrl" alt="" />
+            }
+            else
+            {
+                <div class="profile-art" aria-hidden="true"><span class="profile-art-label">IMAGE</span></div>
+            }
+            <span class="portrait-caption">IMAGE</span>
+        </div>
+        <div class="profile-copy">
+            <p class="eyebrow"><span class="eyebrow-dot"></span> PROFILE TEMPLATE</p>
+            <span class="profile-field-label">NAME</span>
+            @if (!string.IsNullOrWhiteSpace(Model.Name))
+            {
+                <h1>@Model.Name<span class="wordmark-period">.</span></h1>
+            }
+            else
+            {
+                <div class="empty-line empty-name" aria-label="Name field"></div>
+            }
+            <span class="profile-field-label">ROLE / TITLE</span>
+            @if (!string.IsNullOrWhiteSpace(Model.Role))
+            {
+                <p class="profile-role">@Model.Role</p>
+            }
+            else
+            {
+                <div class="empty-line empty-role" aria-label="Role or title field"></div>
+            }
+            <div class="profile-divider"></div>
+            <h2>ABOUT</h2>
+            @if (!string.IsNullOrWhiteSpace(Model.Introduction))
+            {
+                <p class="profile-intro">@Model.Introduction</p>
+            }
+            else
+            {
+                <div class="empty-copy" aria-label="About field"><span></span><span></span><span></span></div>
+            }
+            <h2 class="focus-heading">FOCUS</h2>
+            <ul class="focus-list">
+                @if (Model.FocusAreas.Length > 0)
+                {
+                    @foreach (var area in Model.FocusAreas)
+                    {
+                        <li>@area</li>
+                    }
+                }
+                else
+                {
+                    <li><span class="empty-line" aria-label="Focus area field"></span></li>
+                    <li><span class="empty-line" aria-label="Focus area field"></span></li>
+                    <li><span class="empty-line" aria-label="Focus area field"></span></li>
+                }
+            </ul>
+            <div class="profile-links">
+                <span class="profile-field-label">CONTACT</span>
+                @if (!string.IsNullOrWhiteSpace(Model.Email))
+                {
+                    <a href="mailto:@Model.Email">Email <span aria-hidden="true">↗</span></a>
+                }
+                @if (!string.IsNullOrWhiteSpace(Model.GithubUrl))
+                {
+                    <a href="@Model.GithubUrl" target="_blank" rel="noreferrer">Link <span aria-hidden="true">↗</span></a>
+                }
+                @if (string.IsNullOrWhiteSpace(Model.Email) && string.IsNullOrWhiteSpace(Model.GithubUrl))
+                {
+                    <span class="empty-line contact-empty" aria-label="Contact field"></span>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="profile-next">
+    <p>PROFILE TEMPLATE</p>
+    <a asp-controller="Home" asp-action="Index">All profiles <span aria-hidden="true">↗</span></a>
+</section>
